@@ -47,7 +47,7 @@ module.exports = (robot) ->
       .catch (error) ->
         msg.send(error)
 
-  if process.env.IS_RESPOND?
-    robot.respond /\s(\S+)/i, send_message
-  else
-    robot.hear /\s(\S+)/i, send_message
+  #if process.env.IS_RESPOND?
+  #  robot.respond /\s(\S+)/i, send_message
+  #else
+  robot.hear /\s(\S+)/i, send_message
