@@ -10,7 +10,7 @@
 Docomochatter = require('docomochatter')
 
 module.exports = (robot) ->
-  client = new Docomochatter(process.env.DOCOMO_API_KEY)
+  client = new Docomochatter(process.env.HUBOT_DOCOMO_API_KEY)
   robot.brain.data.chat_context = {}
 
   is_defined_cmd = (msg) ->
@@ -35,10 +35,14 @@ module.exports = (robot) ->
 
   send_message = (msg) ->
     return if is_defined_cmd(msg)
-    msg.send "No API key found for hubot-docomochatter" unless process.env.DOCOMO_API_KEY?
+    msg.send "No API key found for hubot-docomochatter" unless process.env.HUBOT_DOCOMO_API_KEY?
 
     context_id = msg.message.room
     option = get_context(context_id)
+    if process.env.HUBOT_DOCOMO_CHARACTER is "WEST"
+      option.t = 20
+    else if process.env.HUBOT_DOCOMO_CHARACTER is "BABY"
+      option.t = 30
 
     client.create_dialogue(msg.match[1], option)
       .then (response) ->
@@ -47,7 +51,18 @@ module.exports = (robot) ->
       .catch (error) ->
         msg.send(error)
 
-  if process.env.IS_RESPOND?
+  if process.env.HUBOT_DOCOMO_IS_RESPOND?
     robot.respond /\s(\S+)/, send_message
   else
     robot.hear /(.+)/, send_message
+
+  robot.enter (res) ->
+    enterRepliesWest = ['ういっす', 'はろはろー']
+    enterRepliesBaby = ['ばぶー', 'ばぶばぶ']
+    enterRepliesDefault = ['こんにちは', 'よろしくです']
+    if process.env.HUBOT_DOCOMO_CHARACTER is "WEST"
+      res.send res.random enterRepliesWest
+    else if process.env.HUBOT_DOCOMO_CHARACTER is "BABY"
+      res.send res.random enterRepliesBaby
+    else
+      res.send res.random enterRepliesDefault
