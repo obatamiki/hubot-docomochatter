@@ -33,7 +33,7 @@ module.exports = (robot) ->
       context: res.context
       mode: res.mode
 
-  robot.respond /\s(\S+)/i, (msg) ->
+  send_message = (msg) ->
     return if is_defined_cmd(msg)
     msg.send "No API key found for hubot-docomochatter" unless process.env.DOCOMO_API_KEY?
 
@@ -46,3 +46,8 @@ module.exports = (robot) ->
         msg.send(response.utt)
       .catch (error) ->
         msg.send(error)
+
+  if process.env.IS_RESPOND?
+    robot.respond /\s(\S+)/i, send_message(msg)
+  else
+    robot.hear /\s(\S+)/i, send_message(msg)
