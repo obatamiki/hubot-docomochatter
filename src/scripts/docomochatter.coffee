@@ -48,6 +48,6 @@ module.exports = (robot) ->
         msg.send(error)
 
   if process.env.IS_RESPOND?
-    robot.respond /\s(\S+)/i, send_message(msg)
+    robot.respond /\s(\S+)/i, send_message
   else
-    robot.hear /\s(\S+)/i, send_message(msg)
+    robot.hear /\s(\S+)/i, send_message
