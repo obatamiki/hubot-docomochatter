@@ -17,7 +17,7 @@ module.exports = (robot) ->
     cmds = [] # list of available hubot commands
     for help in robot.helpCommands()
       splitted = help.split(' ')
-      if splitted[0] is 'hubot'
+      if splitted[0] is #{robot.name}
         cmd = splitted[1]
       else
         cmd = splitted[0]
