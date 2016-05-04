@@ -16,10 +16,11 @@ module.exports = (robot) ->
   is_defined_cmd = (msg) ->
     cmds = [] # list of available hubot commands
     for help in robot.helpCommands()
-      if help.split(' ')[0] == 'hubot'
-        cmd = help.split(' ')[1]
+      splitted = help.split(' ')
+      if splitted[0] is 'hubot'
+        cmd = splitted[1]
       else
-        cmd = help.split(' ')[0]
+        cmd = splitted[0]
       cmds.push(cmd) if cmds.indexOf(cmd) == -1
     cmd = msg.match[1].split(' ')[0]
     cmds.indexOf(cmd) != -1
@@ -58,14 +59,3 @@ module.exports = (robot) ->
     robot.respond /\s(\S+)/, send_message
   else
     robot.hear /(.+)/, send_message
-
-  robot.enter (res) ->
-    enterRepliesWest = ['ういっす', 'はろはろー']
-    enterRepliesBaby = ['ばぶー', 'ばぶばぶ']
-    enterRepliesDefault = ['こんにちは', 'よろしくです']
-    if process.env.HUBOT_DOCOMO_CHARACTER is "WEST"
-      res.send res.random enterRepliesWest
-    else if process.env.HUBOT_DOCOMO_CHARACTER is "BABY"
-      res.send res.random enterRepliesBaby
-    else
-      res.send res.random enterRepliesDefault
