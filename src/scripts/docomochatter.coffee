@@ -16,7 +16,10 @@ module.exports = (robot) ->
   is_defined_cmd = (msg) ->
     cmds = [] # list of available hubot commands
     for help in robot.helpCommands()
-      cmd = help.split(' ')[1]
+      if help.split(' ')[0] == 'hubot'
+        cmd = help.split(' ')[1]
+      else
+        cmd = help.split(' ')[0]
       cmds.push(cmd) if cmds.indexOf(cmd) == -1
     cmd = msg.match[1].split(' ')[0]
     cmds.indexOf(cmd) != -1
