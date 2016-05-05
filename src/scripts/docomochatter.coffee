@@ -2,7 +2,7 @@
 #   chat with your hubot via Docomo Zatsudan-Taiwa(雑談対話) API
 #
 # Commands:
-#   hubot * (it works only if it doesn't match other commands)
+#   * (it works only if it doesn't match other commands)
 #
 # Author:
 #   - toshimaru
@@ -21,7 +21,6 @@ module.exports = (robot) ->
         cmd = splitted[1]
       else
         cmd = splitted[0]
-      console.log(cmd)
       cmds.push(cmd) if cmds.indexOf(cmd) == -1
     cmd = msg.match[1].split(' ')[0]
     cmds.indexOf(cmd) != -1
