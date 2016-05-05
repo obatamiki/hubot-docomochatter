@@ -16,12 +16,12 @@ module.exports = (robot) ->
   is_defined_cmd = (msg) ->
     cmds = [] # list of available hubot commands
     for help in robot.helpCommands()
-      console.log(help)
       splitted = help.split(' ')
-      if splitted[0] is robot.name
+      if splitted[0] is 'hubot'
         cmd = splitted[1]
       else
         cmd = splitted[0]
+      console.log(cmd)
       cmds.push(cmd) if cmds.indexOf(cmd) == -1
     cmd = msg.match[1].split(' ')[0]
     cmds.indexOf(cmd) != -1
