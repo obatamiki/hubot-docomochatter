@@ -38,7 +38,7 @@ module.exports = (robot) ->
       mode: res.mode
 
   send_message = (msg) ->
-    return if is_defined_cmd(msg)
+    #return if is_defined_cmd(msg)
     msg.send "No API key found for hubot-docomochatter" unless process.env.HUBOT_DOCOMO_API_KEY?
 
     context_id = msg.message.room
