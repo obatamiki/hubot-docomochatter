@@ -13,6 +13,7 @@ module.exports = (robot) ->
   client = new Docomochatter(process.env.HUBOT_DOCOMO_API_KEY)
   robot.brain.data.chat_context = {}
 
+  ###
   is_defined_cmd = (msg) ->
     cmds = [] # list of available hubot commands
     for help in robot.helpCommands()
@@ -25,6 +26,7 @@ module.exports = (robot) ->
       cmds.push(cmd) if cmds.indexOf(cmd) == -1
     cmd = msg.match[1].split(' ')[0]
     cmds.indexOf(cmd) != -1
+  ###
 
   get_context = (context_id) ->
     context = {}
