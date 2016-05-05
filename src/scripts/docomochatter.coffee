@@ -13,11 +13,10 @@ module.exports = (robot) ->
   client = new Docomochatter(process.env.HUBOT_DOCOMO_API_KEY)
   robot.brain.data.chat_context = {}
 
-  ###
   is_defined_cmd = (msg) ->
     cmds = [] # list of available hubot commands
     for help in robot.helpCommands()
-      console.log("help=" + help)
+      console.log(help)
       splitted = help.split(' ')
       if splitted[0] is robot.name
         cmd = splitted[1]
@@ -26,7 +25,6 @@ module.exports = (robot) ->
       cmds.push(cmd) if cmds.indexOf(cmd) == -1
     cmd = msg.match[1].split(' ')[0]
     cmds.indexOf(cmd) != -1
-  ###
 
   get_context = (context_id) ->
     context = {}
@@ -41,7 +39,7 @@ module.exports = (robot) ->
       mode: res.mode
 
   send_message = (msg) ->
-    #return if is_defined_cmd(msg)
+    return if is_defined_cmd(msg)
     msg.send "No API key found for hubot-docomochatter" unless process.env.HUBOT_DOCOMO_API_KEY?
 
     context_id = msg.message.room
